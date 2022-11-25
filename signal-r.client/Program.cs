@@ -2,7 +2,7 @@
 
 
 var connection = new HubConnectionBuilder()
-    .WithUrl("http://localhost:7041/ChatHub")
+    .WithUrl("https://localhost:7041/ChatHub")
     .Build();
 
 connection.Closed += async (error) =>
@@ -13,7 +13,7 @@ connection.Closed += async (error) =>
 
 connection.On<string>("SendMessage", Console.WriteLine);
 
-connection.StartAsync();
+await connection.StartAsync();
 
 Console.WriteLine("Awaiting input...");
 Console.ReadLine();
