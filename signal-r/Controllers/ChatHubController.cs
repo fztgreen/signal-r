@@ -9,9 +9,9 @@ namespace signal_r.Controllers
     [ApiController]
     public class ChatHubController : ControllerBase
     {
-        private readonly IHubContext<ChatHub> _context;
+        private readonly IHubContext<ChatHub, IChatHub> _context;
 
-        public ChatHubController(IHubContext<ChatHub> context)
+        public ChatHubController(IHubContext<ChatHub, IChatHub> context)
         {
             _context = context;
         }
@@ -19,7 +19,7 @@ namespace signal_r.Controllers
         [HttpGet(Name = "SendMessage")]
         public async Task<string> SendMessage(string message)
         {
-            await _context.Clients.All.SendAsync("SendMessage", message);
+            await _context.Clients.All.SendMessage(message);
             return "Ok";
         }
     }
